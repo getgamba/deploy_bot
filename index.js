@@ -62,7 +62,7 @@ exports.slack_handler = function(event, context, callback) {
         return null
 
     const command_text = params['text']
-    let match = command_text.match(/([-_.+0-9a-zA-Z]*) *to +(production|staging|app|android|ios|codepush|web)/)
+    let match = command_text.match(/([-_.+0-9a-zA-Z]*) *to +(production|staging|app|android|ios|codepush|web|apk)/)
     if (match) {
         let branch = match[1] || 'master'
         let target = match[2]
