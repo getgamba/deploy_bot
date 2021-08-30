@@ -16,6 +16,23 @@ const GITHUB_HEADERS = {
     'Authorization': `token ${GITHUB_TOKEN}`
 }
 
+const CIRCLECI_HOST = "circleci.com"
+const CIRCLECI_PATH = "/api/v1.1/project/github/getgamba/gamba/tree/master"
+const CIRCLECI_TOKEN = "80b7cad7621854a4a9c1bf748f954e00d62ba51a"
+
+const CircleciAPI = {
+    create_job: function(job_name) {
+        return request({
+            uri: `https://${CIRCLECI_HOST}${CIRCLECI_PATH}?circle-token=${CIRCLECI_TOKEN}`,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `build_parameters[CIRCLE_JOB]=${job_name}`
+        })
+    }
+}
+
 const GithubAPI = {
     create_pull_req: function(branch, target) {
         const payload = {
@@ -77,6 +94,27 @@ exports.slack_handler = function(event, context, callback) {
             response_type: 'in_channel',
             text: `これから${branch}を${target}にデプロイしまーす！(๑˃̵ᴗ˂̵) \nhttps://circleci.com/gh/getgamba/gamba\nお疲れ様でしたー＼(^o^)／`,
         })
+    } else if (command_text.match(/^rollback +production/)) {
+        CircleciAPI.create_job('rollback').then(()=>
+            callback(null, {
+                response_type: 'in_channel',
+                text: 'productionを直前のデプロイの状態にロールバックします！'
+            })
+        )
+    } else if (command_text.match(/^maintenance +start/)) {
+        CircleciAPI.create_job('maintenance_start').then(()=>
+            callback(null, {
+                response_type: 'in_channel',
+                text: 'gambaをメンテナンス中画面に切り替えます！終わったら /deploy mentenance stop って話しかけてね。'
+            })
+        )
+    } else if (command_text.match(/^maintenance +stop/)) {
+        CircleciAPI.create_job('maintenance_stop').then(()=>
+            callback(null, {
+                response_type: 'in_channel',
+                text: 'gambaのメンテナンス中表示を解除します。作業お疲れ様でした。'
+            })
+        )
     } else {
         callback(null, {
             text: `意味わかんなーい(≧∀≦)\n/deploy [<branch_name>] to <production|staging|ios|android|app|codepush|web>\nこんな感じで話しかけてねー♡ `
