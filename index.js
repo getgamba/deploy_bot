@@ -18,7 +18,7 @@ const GITHUB_HEADERS = {
 
 const CIRCLECI_HOST = "circleci.com"
 const CIRCLECI_PATH = "/api/v1.1/project/github/getgamba/gamba/tree/master"
-const CIRCLECI_TOKEN = "80b7cad7621854a4a9c1bf748f954e00d62ba51a"
+const CIRCLECI_TOKEN = "07e2f9d299e1732f74292063c06539f2c8fd750a" // 2023/01/20(morita) CircleCIのAPI Tokenが消えてしまったため再設定
 
 const CircleciAPI = {
     create_job: function(job_name) {
