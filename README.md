@@ -72,4 +72,5 @@ Slackのチャネルに対して、以下のコマンドを送ることで、各
 * `maintenance stop`: メンテナンスモードを解除します。APIリクエストは正常応答を返すようになります。
 * `rollback`: 直前のデプロイリリースの状態にロールバックします。
 
-
+## 参考
+* [2023/01/24 AWS Lambdaの入れ替え作業の録画](https://drive.google.com/file/d/1SLRfoHC91MkBPbz6xLZmNbt0-fjubIQh/view)
