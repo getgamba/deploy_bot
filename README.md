@@ -70,7 +70,8 @@ Slackのチャネルに対して、以下のコマンドを送ることで、各
 ```
 * `maintenance start`: gamba!をメンテナンスモードに切り替えます。これによって、APIリクエストはすべてステータスコード503を応答するようになります。
 * `maintenance stop`: メンテナンスモードを解除します。APIリクエストは正常応答を返すようになります。
-* `rollback`: 直前のデプロイリリースの状態にロールバックします。
+* `rollback production`: 直前のデプロイリリースの状態にロールバックします。
 
 ## 参考
 * [2023/01/24 AWS Lambdaの入れ替え作業の録画](https://drive.google.com/file/d/1SLRfoHC91MkBPbz6xLZmNbt0-fjubIQh/view)
+
